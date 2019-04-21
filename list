@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+if [[ $1 != "--all" ]]; then
+    OPTS=""
+    SERVER=$1
+else
+    OPTS=$1
+    SERVER=$2
+fi
+
+
+if [[ "${SERVER}" != "" ]]; then
+    virsh -r -c qemu+ssh://$SERVER/system list $OPTS
+else
+    virsh -r -c qemu:///system list $OPTS
+fi
+
+
