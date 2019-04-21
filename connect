@@ -2,11 +2,12 @@
 
 VM=$1
 SERVER=$2
+UPATH="~/vm-utils"
 
 if [[ "${SERVER}" != "" ]]; then
-    IP=`./virt-addr.pl $1 $SERVER`
+    IP=`${UPATH}/virt-addr.pl $1 $SERVER`
 else
-    IP=`./virt-addr.pl $1 | sed '1q;d'`
+    IP=`${UPATH}/virt-addr.pl $1 | sed '1q;d'`
 fi
 
 screen -h 1000 -t $1 -S $1 ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null root@$IP
