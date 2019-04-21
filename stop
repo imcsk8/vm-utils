@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+OPTS=$1
+SERVER=$2
+
+if [[ "${SERVER}" != "" ]]; then
+    virsh -c qemu+ssh://$SERVER/system shutdown $OPTS
+else
+    virsh -c qemu:///system shutdown $OPTS
+fi
+
+
