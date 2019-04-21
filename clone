@@ -1,0 +1,24 @@
+#!/bin/bash
+
+SERVER=$1
+VM_ORIG=$2
+#VMS=$2
+
+echo "SERVER: $SERVER"
+
+
+function clone_vm {
+  ORIGINAL=$1
+  NEW=$2
+  if [[ "${SERVER}" != "" ]]; then
+      virt-clone --connect qemu+ssh://$SERVER/system -o $ORIGINAL -n $NEW -f /space/images/$NEW.img
+  else
+      virt-clone --connect qemu:///system -o $ORIGINAL -n $NEW -f /space/images/$NEW.img
+  fi
+}
+
+for vm in "${@:3}"; do
+  echo "Cloning $VM_ORIG into $vm"
+  clone_vm $VM_ORIG $vm
+done
+
