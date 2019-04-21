@@ -1,0 +1,14 @@
+#!/bin/bash
+
+OPTS=$1
+SERVER=$2
+
+if [[ "${SERVER}" != "" ]]; then
+    virsh -c qemu+ssh://$SERVER/system shutdown $1
+    virsh -c qemu+ssh://$SERVER/system undefine --remove-all-storage $1
+else
+    virsh -c qemu:///system shutdown $1
+    virsh -c qemu:///system undefine --remove-all-storage $1
+fi
+
+
